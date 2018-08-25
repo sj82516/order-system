@@ -1,0 +1,7 @@
+{
+    "db": {
+        "host": "localhost:27018,localhost:27019,localhost:27020",
+        "replicaSet": "rs0"
+    },
+    "port": 3000
+}

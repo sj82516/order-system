@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+const conf = require("../../conf.json");
 
-const reservation = require("./reservation")
+mongoose.connect(`mongodb://${conf.db.host}/test?replicaSet=${conf.db.replicaSet}`);
+
+const order = require("./order")
 
 module.exports = {
-    reservation
+    order
 }

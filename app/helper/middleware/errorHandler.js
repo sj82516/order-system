@@ -1,6 +1,7 @@
 const debug = require("debug")("alfred::errorHandle::");
 
 function errorHandler(err, req, res, next) {
+    debug(err)
     let response = errorHandle(err)
     res.status(response.statusCode).send({
         type: response.type,
@@ -26,7 +27,7 @@ function errorHandle(err) {
                     msg: "此Email已經預約過，請使用其他Email"
                 }
             }
-        case "RESERVATION_NOT_FOUND":
+        case "ORDER_NOT_FOUND":
             {
                 return {
                     statusCode: 404,
@@ -34,7 +35,7 @@ function errorHandle(err) {
                     msg: "查無預約記錄"
                 }
             }
-        case "RESERVATION_EMAIL_ERROR":
+        case "ORDER_EMAIL_ERROR":
             {
                 return {
                     statusCode: 401,
@@ -42,7 +43,7 @@ function errorHandle(err) {
                     msg: "請填寫正確格式的Email"
                 }
             }
-        case "RESERVATION_ORDER_DATE_ERROR":
+        case "ORDER_ORDER_DATE_ERROR":
             {
                 return {
                     statusCode: 401,
@@ -50,7 +51,7 @@ function errorHandle(err) {
                     msg: "預約日期需晚於當下"
                 }
             }
-        case "RESERVATION_CONTENT_ERROR":
+        case "ORDER_CONTENT_ERROR":
             {
                 return {
                     statusCode: 404,

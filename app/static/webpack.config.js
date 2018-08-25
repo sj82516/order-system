@@ -1,16 +1,18 @@
 var path = require('path')
 var webpack = require('webpack')
+var fs = require("fs");
+
+const CleanWebpackPlugin = require('clean-webpack-plugin'); //installed via npm
 
 module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    filename: 'build.[hash].js'
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.css$/,
         use: [
           'vue-style-loader',
@@ -58,7 +60,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /(node_modules)/
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -71,7 +73,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.esm.js',
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
@@ -90,6 +92,7 @@ if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
+    new CleanWebpackPlugin(['dist']),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'
@@ -103,6 +106,21 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
-    })
+    }),
+    function () {
+      this.plugin("done", function (statsData) {
+        var stats = statsData.toJson();
+        var htmlFileName = "index.html";
+        var html = fs.readFileSync(path.join(__dirname, htmlFileName), "utf8");
+
+        var htmlOutput = html.replace(
+          /<script\s+src=(["'])(.+?)build\.js\1/i,
+          "<script src=$1$2" + stats.assetsByChunkName.main[0] + "$1");
+
+        fs.writeFileSync(
+          path.join(__dirname, "dist", htmlFileName),
+          htmlOutput);
+      });
+    }
   ])
 }

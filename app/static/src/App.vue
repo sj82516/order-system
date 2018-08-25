@@ -1,32 +1,32 @@
 <template>
-  <div id="app">
-    <h1>請填寫預約資訊</h1>
-    <form>
-      <button @click.prevent="submit">送出</button>
-    </form>
+  <div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-
-import * as de from "../../helper/middleware/errorHandler";
-
 export default {
-  name: 'app',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
-    }
-  },
-  methods: {
-    submit(){
-      console.log(de.errorHandle({msg: "test"}))
     }
   }
 }
 </script>
 
 <style lang="scss">
+.admin-router-btn {
+  margin: 20px auto;
+  display: block;
+  width: 250px;
+  background: white;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border: 5px solid orange;
+  border-radius: 15px;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -52,5 +52,10 @@ li {
 
 a {
   color: #42b983;
+}
+
+.title {
+  text-align: center;
+  margin: 30px;
 }
 </style>
