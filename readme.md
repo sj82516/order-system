@@ -29,7 +29,7 @@ GET /api/order/dashboard/status
 
 ## 方案套討
 1. Daily Dump DB(尚未實作)：
-查詢官網的有幾種備份做法
+查詢官網的有幾種備份做法  
 a. 使用 File System Snapshot 功能：先開啟MongoDB 日誌功能，直接做檔案系統的備份，缺點是必須作業系統有支援，且資料庫資料都必須在同一個邏輯裝置上  
 b. 使用 cp / rsync：直接將MongoDB儲存的原始資料複製，但缺點是必須先停止 `mongod`寫入，避免備份到過期資料。  
 c. 使用 mongodump：使用 Mongo 官方提供的 dump工具，在dump過程會先lock住，文件描述到僅適合小型系統。  
@@ -37,6 +37,7 @@ d. 使用 Mongo Cloud Manager：付費工具，為Mongo官方提供的雲端工�
 
 如果要實作的話會考慮採用方案Ａ，因為在AWS EBS可以支援快照功能；  
 其餘方案會需要停機或是鎖住資料庫，會導致服務暫停，又或是需要付費。  
+
 2. 記錄用戶來源國家：  
 要得知用戶來源國家，除了前端加開欄位請用戶填寫外，可以透過 ip轉換地理位置，此處採用 "geoip-lite" 模組，其資料是透過 maxmind 的資料  
 ip來源為 nginx 反向代理解析的用戶 network layer remote address($remote_addr)。
