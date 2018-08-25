@@ -23,6 +23,7 @@
         <p class="column__content">{{order.content}}</p>
       </div>
     </div>
+    <router-link to="/admin" class="admin-router-btn">前往管理後台</router-link>
   </div>
 </template>
 

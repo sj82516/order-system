@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const moemnt = require("moment");
+const moment = require("moment");
 
 const {
     ORDER_TYPE,
@@ -95,7 +95,7 @@ schema.statics.deleteRejectedOrder = async function () {
     return this.model("order").update({
         status: "reject",
         modifyAt: {
-            "lte": moment().subtract(3, "h")
+            "$lte": moment().subtract(3, "h")
         },
         deleteAt: null
     }, {

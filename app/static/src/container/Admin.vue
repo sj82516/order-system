@@ -70,6 +70,9 @@ export default {
           o.createAt = moment(o.createAt).format(format);
           o.modifyAt = moment(o.modifyAt).format(format);
           o.order_date = moment(o.order_date).format(format);
+          if(o.deleteAt){
+            o.deleteAt = moment(o.deleteAt).format(format);
+          }
           return o;
         }));
       }
