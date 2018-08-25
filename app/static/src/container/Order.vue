@@ -29,6 +29,7 @@
 
 <script>
 import axios from 'axios';
+import moment from 'moment';
 
 export default {
   data() {
@@ -52,6 +53,7 @@ export default {
     try {
       let res = await axios.get(`/api/order/${id}`);
       if (res.data && res.data.data) {
+        res.data.data.order_date = moment(res.data.data.order_date).format("YYYY-MM-DD")
         return (this.order = res.data.data);
       }
       throw 'error';
@@ -76,6 +78,7 @@ export default {
   margin: auto;
   max-width: 450px;
   border: 1px solid orange;
+  box-sizing: border-box;
 }
 
 .column {

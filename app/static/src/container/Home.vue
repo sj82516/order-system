@@ -87,6 +87,7 @@ form {
   max-width: 450px;
   border: 5px solid orange;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .input-field {

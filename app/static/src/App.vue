@@ -27,6 +27,10 @@ export default {
   border-radius: 15px;
 }
 
+html{
+  line-height: initial;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
