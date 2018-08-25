@@ -51,7 +51,8 @@ ORM 採用 Mongoose，宣告於 `/app/model/order.js`，也有基本的驗證，
 目前錯誤處理與顯示統一用 `/app/helper/middleware/errorHandler.js`處理
 
 3. 週期性任務   
-專案要求 `rejected預約超過三小時則刪除`，因為會需要有邏輯判斷則使用 node.js 自行處理，定義於 `/app/script/cron.js`
+專案要求 `rejected預約超過三小時則刪除`，因為會需要有邏輯判斷則使用 node.js 自行處理，定義於 `/app/script/cron.js`，目前作法是每 10分鐘檢查一次，所以不會是整三小時，最晚會有約10分鐘誤差；
+目前刪除是標記 deleteAt時間，預約查詢時有排除被刪除的預約
 
 1. 前端目前是以子專案形式嵌入在 `/app/static`，打包好的檔案會產出至 `/app/static/dist`下，直接由 Express 返回。
 

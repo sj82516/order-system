@@ -1,8 +1,6 @@
-const CronJob = require("cron").CronJob;
+const cron = require("node-cron")
 const model = require("../model")
 
-const job = new CronJob('* */10 * * * *', async function() {
+cron.schedule("* */10 * * * *", async function () {
 	await model.order.deleteRejectedOrder()
-});
-
-job.start();
+})
