@@ -1,7 +1,23 @@
 const debug = require("debug")("alfred::errorHandle::");
+const path = require("path");
+const bunyan = require("bunyan");
+
+const log = bunyan.createLogger({
+    name: "log",
+    streams: [
+      {
+        level: 'error',
+        path: path.join(__dirname, "../../../log/error.log")
+      }
+    ]
+  });
 
 function errorHandler(err, req, res, next) {
-    debug(err)
+    if(process.env.NODE_ENV === "production"){
+        log.error(err)
+    }else{
+        debug(err)
+    }
     let response = errorHandle(err)
     res.status(response.statusCode).send({
         type: response.type,
